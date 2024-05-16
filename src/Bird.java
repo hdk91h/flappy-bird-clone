@@ -29,6 +29,8 @@ public class Bird {
         collision = false;
     }
 
+
+
     public Image getImage() {
 
         try {

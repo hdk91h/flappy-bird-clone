@@ -1,12 +1,20 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import javax.swing.*;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements KeyListener, ActionListener {
 
     public Background bg;
     public Floor floor;
     public Pipe pipe;
     public Bird bird;
+
+    Timer gameLoop;
+    Timer pipePlace;
+
+    boolean gameOver = false;
 
 
     Board() {
@@ -35,6 +43,12 @@ public class Board extends JPanel {
         g.drawImage(bird.getImage(), bird.x, bird.y, null);
 
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 
     
