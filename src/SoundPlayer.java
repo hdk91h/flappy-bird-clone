@@ -36,21 +36,3 @@ public class SoundPlayer {
             }
         }).start();
     }
-
-    public static void main(String[] args) {
-        // Beispielaufruf der playSound Methode
-        playSound("path/to/soundfile.wav");
-
-        // Weiterer Code kann hier parallel ausgeführt werden
-        for (int i = 0; i < 5; i++) {
-            System.out.println("Das Programm läuft weiter...");
-            try {
-                Thread.sleep(1000); // Simuliert Arbeit
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        System.out.println("Das Programm ist fertig.");
-    }
-}
