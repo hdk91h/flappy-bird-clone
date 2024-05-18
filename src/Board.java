@@ -12,11 +12,10 @@ public class Board extends JPanel implements KeyListener, ActionListener {
     public Floor floor;
     public Pipe pipe;
     public Bird bird;
+    public Score score;
+    public SoundPlayer soundPlayer;
 
     ArrayList<Pipe> obstacles;
-
-    //public Image topPipeImg;
-    //public Image bottomPipeImg;
 
     Timer gameLoop;
     Timer pipePlace;
@@ -28,11 +27,10 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         floor = new Floor();
         pipe = new Pipe();
         bird = new Bird();
+        score = new Score();
+        soundPlayer = new SoundPlayer();
 
         obstacles = new ArrayList<>();
-
-        //topPipeImg = pipe.getImage("src/asset/sprite/toppipe.png");
-        //bottomPipeImg = pipe.getImage("src/asset/sprite/bottompipe.png");
 
         gameLoop = new Timer(1000/60, this);
         gameLoop.start();
@@ -92,6 +90,18 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         // bird
         g.drawImage(bird.getImage(), bird.x, bird.y, null);
 
+        // score
+
+        g.setColor(Color.white);
+        g.setFont(new Font("Arial", Font.PLAIN, 30));
+        if (gameOver) {
+            g.drawString("Game Over: " + String.valueOf((int) score.playerScore), 10, 35);
+            if (score.playerLastScore > 0) {
+            g.drawString("Last Game: " + String.valueOf((int) score.playerLastScore), 10, 65);    
+            }
+        } else {
+            g.drawString((String.valueOf((int) score.playerScore)), 10, 35);
+        }
 
     }
 
@@ -99,6 +109,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         
         //bird
         if (bird.y > 488) {
+            soundPlayer.playSound("src/asset/sound/hit.wav");
             gameOver = true;
         } else if (bird.y < 0) {
             bird.y = 0;
@@ -112,10 +123,26 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         for (int i = 0; i < obstacles.size(); i++) {
             Pipe pipe = obstacles.get(i);
             pipe.x += pipe.velocityX;
-        }
 
+            if (!pipe.passed && bird.x > pipe.x + pipe.width) {
+                pipe.passed = true;
+                score.playerScore += 0.5;
+                soundPlayer.playSound("src/asset/sound/point.wav");
+            }
+
+            if (collision(bird, pipe)) {
+                soundPlayer.playSound("src/asset/sound/hit.wav");
+                gameOver = true;
+            }
+        }
     }
 
+    public boolean collision(Bird a, Pipe b) {
+        return a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y;
+    }
 
     public void update() {
         gravity();
@@ -139,12 +166,16 @@ public class Board extends JPanel implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_SPACE) {
             bird.velocityY = -9;
+            // sound wings
+            soundPlayer.playSound("src/asset/sound/wing.wav");
             
             if (gameOver) {
                 //restart
                 bird.y = 200;
                 bird.velocityY = 0;
                 obstacles.clear();
+                score.playerLastScore = score.playerScore;
+                score.playerScore = 0;
                 gameOver = false;
                 gameLoop.start();
                 

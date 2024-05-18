@@ -19,11 +19,13 @@ public class Bird {
 
     private Image image;
 
+    
+
     Bird() {
         x = 100;
         y = 200;
-        width = 40;
-        height = 40;
+        width = 30;
+        height = 20;
         velocityY =0;
         gravity = 1;
     }

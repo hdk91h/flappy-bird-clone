@@ -1,7 +1,7 @@
 public class Score {
     
-    int playerScore = 0;
-    int playerHighScore = 0;
-    int playerLastScore = 0;
-    
+    double playerScore = 0;
+    double playerHighScore = 0;
+    double playerLastScore = 0;
+
 }
