@@ -24,4 +24,5 @@ public class Background {
 
         return image;
     }
+
 }

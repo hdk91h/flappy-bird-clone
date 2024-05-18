@@ -8,21 +8,41 @@ public class Pipe {
     public int x;
     public int y;
 
-    private Image image;
+    public int width;
+    public int height;
 
+    public int velocityX;
 
-    Pipe() {
+    public boolean passed;
 
-        x = 500;
+    public Image image;
+
+    private static final String DEFAULT_IMAGE_SRC = "src/asset/sprite/toppipe.png";
+  
+    Pipe(String src) {
+
+        x = 576;
         y = 0;
-        
+        width = 60;
+        height = 450;
+
+        this.image = this.getImage(src);
+
+        velocityX = -3;
+        passed = false;
+
     }
 
-    public Image getImage() {
+    Pipe() {
+        this(DEFAULT_IMAGE_SRC);
+    }
+
+    public Image getImage(String src) {
 
         try {
 
-            image = ImageIO.read(new File("src/asset/sprite/pipe-green.png"));
+            image = ImageIO.read(new File(src));
+
             
         } catch (IOException e) {
             e.printStackTrace();

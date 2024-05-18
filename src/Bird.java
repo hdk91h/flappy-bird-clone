@@ -14,22 +14,19 @@ public class Bird {
     public boolean collision;
 
     // velocity
-    public double velocityY;
-    public double gravity;
+    public int velocityY;
+    public int gravity;
 
     private Image image;
 
     Bird() {
         x = 100;
         y = 200;
-        velocityY = 0;
         width = 40;
         height = 40;
-        gravity = 0.6;
-        collision = false;
+        velocityY =0;
+        gravity = 1;
     }
-
-
 
     public Image getImage() {
 

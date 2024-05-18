@@ -15,7 +15,7 @@ public class Window extends JFrame {
 
     public void init() {
         JFrame frame = new JFrame("Flappy Bird Clone");
-        frame.setVisible(true);
+
         frame.setResizable(false);
         frame.setSize(windowWidth, windowHeight);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,7 +23,9 @@ public class Window extends JFrame {
 
         Board board = new Board();
         frame.add(board);
-        //frame.pack();
+       //frame.pack();
+        board.requestFocus();
+        frame.setVisible(true);
     }
 }
 
