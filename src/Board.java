@@ -97,12 +97,12 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.white);
         g.setFont(new Font("Arial", Font.PLAIN, 30));
         if (gameOver) {
-            g.drawString("Game Over: " + String.valueOf((int) score.playerScore), 10, 35);
-            if (score.playerLastScore > 0) {
-            g.drawString("Last Game: " + String.valueOf((int) score.playerLastScore), 10, 65);    
+            g.drawString("Game Over: " + String.valueOf((int) score.getPlayerScore()), 10, 35);
+            if (score.getPlayerScore() > 0) {
+            g.drawString("Last Game: " + String.valueOf((int) score.getPlayerLastScore()), 10, 65);    
             }
         } else {
-            g.drawString((String.valueOf((int) score.playerScore)), 10, 35);
+            g.drawString((String.valueOf((int) score.getPlayerScore())), 10, 35);
         }
 
     }
@@ -136,7 +136,9 @@ public class Board extends JPanel implements KeyListener, ActionListener {
 
             if (!pipe.isPassed() && bird.getX() > pipe.getX() + pipe.getWidth()) {
                 pipe.setPassed(true);
-                score.playerScore += 0.5;
+                //score.playerScore += 0.5;
+                double psc = score.getPlayerScore();
+                score.setPlayerScore(psc += 0.5);
                 soundPlayer.playSound("src/asset/sound/point.wav");
             }
 
@@ -176,7 +178,6 @@ public class Board extends JPanel implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_SPACE) {
             //bird.velocityY = -9;
-            int bvy = bird.getVelocityY();
             bird.setVelocityY(-9);
             // sound wings
             soundPlayer.playSound("src/asset/sound/wing.wav");
@@ -190,8 +191,10 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 bird.setVelocityY(0);
                 
                 obstacles.clear();
-                score.playerLastScore = score.playerScore;
-                score.playerScore = 0;
+                //score.playerLastScore = score.playerScore;
+                //score.playerScore = 0;
+                score.setPlayerLastScore(score.getPlayerScore());
+                score.setPlayerScore(0);
                 gameOver = false;
                 gameLoop.start();
                 
