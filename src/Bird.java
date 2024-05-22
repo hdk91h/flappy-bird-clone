@@ -5,21 +5,19 @@ import javax.imageio.ImageIO;
 
 public class Bird {
 
-    public int x;
-    public int y;
+    private int x;
+    private int y;
 
-    public int width;
-    public int height;
+    private int width;
+    private int height;
 
-    public boolean collision;
+    private boolean collision;
 
     // velocity
-    public int velocityY;
-    public int gravity;
+    private int velocityY;
+    private int gravity;
 
     private Image image;
-
-    
 
     Bird() {
         x = 100;
@@ -29,6 +27,63 @@ public class Bird {
         velocityY =0;
         gravity = 1;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
+
+    public int getVelocityY() {
+        return velocityY;
+    }
+
+    public void setVelocityY(int velocityY) {
+        this.velocityY = velocityY;
+    }
+
+    public int getGravity() {
+        return gravity;
+    }
+
+    public void setGravity(int gravity) {
+        this.gravity = gravity;
+    }
+
 
     public Image getImage() {
 
@@ -42,5 +97,6 @@ public class Bird {
 
         return image;
     }
+
     
 }
