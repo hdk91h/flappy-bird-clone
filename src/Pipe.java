@@ -5,17 +5,17 @@ import javax.imageio.ImageIO;
 
 public class Pipe {
 
-    public int x;
-    public int y;
+    private int x;
+    private int y;
 
-    public int width;
-    public int height;
+    private int width;
+    private int height;
 
-    public int velocityX;
+    private int velocityX;
 
-    public boolean passed;
+    private boolean passed;
 
-    public Image image;
+    private Image image;
 
     private static final String DEFAULT_IMAGE_SRC = "src/asset/sprite/toppipe.png";
   
@@ -35,6 +35,58 @@ public class Pipe {
 
     Pipe() {
         this(DEFAULT_IMAGE_SRC);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getVelocityX() {
+        return velocityX;
+    }
+
+    public void setVelocityX(int velocityX) {
+        this.velocityX = velocityX;
+    }
+
+    public boolean isPassed() {
+        return passed;
+    }
+
+    public void setPassed(boolean passed) {
+        this.passed = passed;
+    }
+
+    public Image rImage() {
+        return this.image;
     }
 
     public Image getImage(String src) {

@@ -8,12 +8,12 @@ import javax.swing.*;
 
 public class Board extends JPanel implements KeyListener, ActionListener {
 
-    public Background bg;
-    public Floor floor;
-    public Pipe pipe;
-    public Bird bird;
-    public Score score;
-    public SoundPlayer soundPlayer;
+    private Background bg;
+    private Floor floor;
+    private Pipe pipe;
+    private Bird bird;
+    private Score score;
+    private SoundPlayer soundPlayer;
 
     ArrayList<Pipe> obstacles;
 
@@ -50,15 +50,17 @@ public class Board extends JPanel implements KeyListener, ActionListener {
 
     public void placePipe() {  
         
-        int randomY = (int) (pipe.y - pipe.height/5 - Math.random() * (pipe.height/2));
-        int space = pipe.height/4;
+        int randomY = (int) (pipe.getY() - pipe.getHeight()/5 - Math.random() * (pipe.getHeight()/2));
+        int space = pipe.getHeight()/4;
 
         Pipe topPipe = new Pipe("src/asset/sprite/toppipe.png");
-        topPipe.y = randomY;
+        topPipe.setY(randomY);
         obstacles.add(topPipe);
 
         Pipe bottomPipe = new Pipe("src/asset/sprite/bottompipe.png");
-        bottomPipe.y = topPipe.y + pipe.height + space;
+       // bottomPipe.y = topPipe.y + pipe.height + space;
+       int tpy = topPipe.getY();
+       bottomPipe.setY(tpy + pipe.getHeight() + space);
         obstacles.add(bottomPipe);
     }
 
@@ -79,7 +81,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         
         for(int i = 0; i < obstacles.size(); i++) {
             Pipe pipe = obstacles.get(i);
-            g.drawImage(pipe.image, pipe.x, pipe.y, pipe.width, pipe.height, null);
+            g.drawImage(pipe.rImage(), pipe.getX(), pipe.getY(), pipe.getWidth(), pipe.getHeight(), null);
          }
 
         /* 
@@ -122,10 +124,12 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         //pipe
         for (int i = 0; i < obstacles.size(); i++) {
             Pipe pipe = obstacles.get(i);
-            pipe.x += pipe.velocityX;
+           // pipe.x += pipe.velocityX;
+           int px = pipe.getX();
+           pipe.setX(px += pipe.getVelocityX());
 
-            if (!pipe.passed && bird.x > pipe.x + pipe.width) {
-                pipe.passed = true;
+            if (!pipe.isPassed() && bird.x > pipe.getX() + pipe.getWidth()) {
+                pipe.setPassed(true);
                 score.playerScore += 0.5;
                 soundPlayer.playSound("src/asset/sound/point.wav");
             }
@@ -138,10 +142,10 @@ public class Board extends JPanel implements KeyListener, ActionListener {
     }
 
     public boolean collision(Bird a, Pipe b) {
-        return a.x < b.x + b.width &&
-        a.x + a.width > b.x &&
-        a.y < b.y + b.height &&
-        a.y + a.height > b.y;
+        return a.x < b.getX() + b.getWidth() &&
+        a.x + a.width > b.getX() &&
+        a.y < b.getY() + b.getHeight() &&
+        a.y + a.height > b.getY();
     }
 
     public void update() {
